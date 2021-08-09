@@ -43,8 +43,12 @@ namespace RockPaperScissors
 
 		}
 
+		// Click handling for buttons
 		private void rock_OnClick(object sender, RoutedEventArgs e)
 		{
+			// Set bet, confirm there's a large enough balance available
+			// Set the Roll for human based on button, based on random for computer
+			// Battle, update balance, and output concatenated string to textbox
 			betAmount = (int)wagerSlider.Value;
 			if (ConfirmWager())
 			{
@@ -60,7 +64,6 @@ namespace RockPaperScissors
 			battleLogBox.Text = battleLogConcatenated;
 
 		}
-
 		private void paper_OnClick(object sender, RoutedEventArgs e)
 		{
 			betAmount = (int)wagerSlider.Value;
@@ -77,7 +80,6 @@ namespace RockPaperScissors
 			balanceBox.Text = $"{bankBalance}";
 			battleLogBox.Text = battleLogConcatenated;
 		}
-
 		private void scissors_OnClick(object sender, RoutedEventArgs e)
 		{
 			betAmount = (int)wagerSlider.Value;
@@ -94,6 +96,8 @@ namespace RockPaperScissors
 			balanceBox.Text = $"{bankBalance}";
 			battleLogBox.Text = battleLogConcatenated;
 		}
+
+		// Assigns Rock, Paper, Scissors based on number input
 		public static string Roll(int fighter)
 		{
 
@@ -111,6 +115,7 @@ namespace RockPaperScissors
 			}
 		}
 
+		// Verifies there's enough in the bank to handle wager.
 		public bool ConfirmWager()
 		{
 			if (betAmount <= bankBalance)
@@ -118,6 +123,8 @@ namespace RockPaperScissors
 			return false;
 		}
 
+		// Handles the winning/losing mechanic, changes visibility of win or lose images
+		// Updates the battle log, as well as the bank balance.
 		public void Battle()
 		{
 			if (human == "Rock")
@@ -191,6 +198,7 @@ namespace RockPaperScissors
 			}
 		}
 
+		// Just handles the updating of the bank balance.
 		public void UpdateBalance(int bet)
 		{
 			if (bet < 0)
@@ -199,6 +207,8 @@ namespace RockPaperScissors
 				bankBalance += bet / 2;
 		}
 
+		// This is for scrolling the battle log down so the newest entry is at the top
+		// of the textbox, as well as concatenating it for display.
 		public void UpdateBattleLog(string output)
 		{
 			for (int i = 13; i > 0; i--)
