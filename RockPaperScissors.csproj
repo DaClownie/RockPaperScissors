@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\lose.jpg" />
+    <None Remove="img\win.jpg" />
+    <None Remove="win.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\lose.jpg" />
+    <Resource Include="img\win.jpg" />
+    <Resource Include="img\win.png" />
+  </ItemGroup>
+
+</Project>

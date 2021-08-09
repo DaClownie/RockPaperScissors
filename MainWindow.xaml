@@ -1,0 +1,40 @@
+﻿<Window x:Class="RockPaperScissors.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RockPaperScissors"
+        mc:Ignorable="d"
+        Title="Rock Paper Scissors!" Height="450" Width="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="2*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+		<Label Content="Pick:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+		<Label Content="Bank:" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+		<Label Content="Battle Log:" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+		<Button x:Name="buttonRock" Content="Rock" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="rock_OnClick"/>
+		<Button x:Name="buttonPaper" Content="Paper" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="paper_OnClick"/>
+		<Button x:Name="buttonScissors" Content="Scissors" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="scissors_OnClick"/>
+		<StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,20,20,20">
+			<Label Content="Wager:" HorizontalAlignment="Center" FontSize="18" Margin="0,0,0,10"/>
+			<Slider x:Name="wagerSlider" Width="120" Minimum="2" AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" SmallChange="1" IsSnapToTickEnabled="True"/>
+		</StackPanel>
+		<TextBox x:Name="battleLogBox" Grid.Column="1" Margin="20,20,20,20" Grid.Row="1" TextWrapping="Wrap" FontSize="16" Grid.RowSpan="3"/>
+		<Image x:Name="imageWin" Grid.Column="2" HorizontalAlignment="Center" Height="84" Grid.Row="3" VerticalAlignment="Center" Width="280" Source="/img/win.jpg" Stretch="Fill" Visibility="Hidden"/>
+		<Image x:Name="imageLose" Grid.Column="2" HorizontalAlignment="Center" Height="84" Grid.Row="3" VerticalAlignment="Center" Width="280" Source="/img/lose.jpg" Stretch="Fill" Visibility="Hidden"/>
+		<StackPanel Grid.Column="2" Grid.Row="2" Margin="20,20,20,20">
+			<Label Content="Balance:" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+			<TextBox x:Name="balanceBox" Text="" HorizontalAlignment="Center" FontSize="18" Margin="0,0,0,10" Width="100"/>
+		</StackPanel>
+
+	</Grid>
+</Window>
