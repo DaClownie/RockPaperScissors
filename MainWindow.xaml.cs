@@ -89,22 +89,6 @@ namespace RockPaperScissors
 		// Assigns Rock, Paper, Scissors based on number input
 		public static string Roll(int fighter)
 		{
-			// switch/case is for bigger more complex code based on outcomes, can use the return fighter switch instead.
-			/*
-			int choice = fighter;
-			switch (choice)
-			{
-				case 1:
-					return "Rock";
-				case 2:
-					return "Paper";
-				case 3:
-					return "Scissors";
-				default:
-					return "wrong selection";
-			}
-			*/
-
 			return fighter switch
 			{
 				1 => "Rock",
@@ -117,14 +101,6 @@ namespace RockPaperScissors
 		// Verifies there's enough in the bank to handle wager.
 		public bool ConfirmWager()
 		{
-			// Ugly method, left for posterity/learning
-			/*
-			if (betAmount <= bankBalance)
-				return true;
-			return false;
-			*/
-
-			// clean method
 			return betAmount <= bankBalance;
 		}
 
