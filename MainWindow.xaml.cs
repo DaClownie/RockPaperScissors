@@ -20,19 +20,21 @@ namespace RockPaperScissors
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		Random random = new Random();
+		static Random random = new Random();
 
 		public string human;
 		public string computer;
 
 		public int betAmount;
 
+		// 14 Rows fit inside TextBox
 		public string[] battleLog = new string[14];
-		public string battleLogConcatenated = "";
+		public string battleLogConcatenated;
+
 		public string insufficientFunds = "Insufficient Funds\n";
-		public string matchTie = $"Tie! Returning wager!\n";
-		public string matchWin = $"Win! Congratulations!\n";
-		public string matchLose = $"Lose! Tough break!\n";
+		public string matchTie;
+		public string matchWin;
+		public string matchLose;
 
 		public int bankBalance = 100;
 
@@ -43,49 +45,36 @@ namespace RockPaperScissors
 
 		}
 
+
+		// COMPLETED
+		//TODO: Refactor click functionality into it's own method. Too many copies to revise.
+		// COMPLETED
+
+
 		// Click handling for buttons
 		private void rock_OnClick(object sender, RoutedEventArgs e)
 		{
-			// Set bet, confirm there's a large enough balance available
-			// Set the Roll for human based on button, based on random for computer
-			// Battle, update balance, and output concatenated string to textbox
-			betAmount = (int)wagerSlider.Value;
-			if (ConfirmWager())
-			{
-				human = Roll(1);
-				computer = Roll(random.Next(1, 4));
-				Battle();
-			}
-			else
-			{
-				UpdateBattleLog(insufficientFunds);
-			}
-			balanceBox.Text = $"{bankBalance}";
-			battleLogBox.Text = battleLogConcatenated;
-
+			ClickButton(1);
 		}
+
 		private void paper_OnClick(object sender, RoutedEventArgs e)
 		{
-			betAmount = (int)wagerSlider.Value;
-			if (ConfirmWager())
-			{
-				human = Roll(2);
-				computer = Roll(random.Next(1, 4));
-				Battle();
-			}
-			else
-			{
-				UpdateBattleLog(insufficientFunds);
-			}
-			balanceBox.Text = $"{bankBalance}";
-			battleLogBox.Text = battleLogConcatenated;
+			ClickButton(2);
 		}
 		private void scissors_OnClick(object sender, RoutedEventArgs e)
 		{
+			ClickButton(3);
+		}
+
+		// Set bet, confirm there's a large enough balance available
+		// Set the Roll for human based on button, based on random for computer
+		// Battle, update balance, and output concatenated string to textbox
+		private void ClickButton(int humanFighter)
+		{
 			betAmount = (int)wagerSlider.Value;
 			if (ConfirmWager())
 			{
-				human = Roll(3);
+				human = Roll(humanFighter);
 				computer = Roll(random.Next(1, 4));
 				Battle();
 			}
@@ -100,7 +89,8 @@ namespace RockPaperScissors
 		// Assigns Rock, Paper, Scissors based on number input
 		public static string Roll(int fighter)
 		{
-
+			// switch/case is for bigger more complex code based on outcomes, can use the return fighter switch instead.
+			/*
 			int choice = fighter;
 			switch (choice)
 			{
@@ -113,89 +103,70 @@ namespace RockPaperScissors
 				default:
 					return "wrong selection";
 			}
+			*/
+
+			return fighter switch
+			{
+				1 => "Rock",
+				2 => "Paper",
+				3 => "Scissors",
+				_ => "wrong selection"
+			};
 		}
 
 		// Verifies there's enough in the bank to handle wager.
 		public bool ConfirmWager()
 		{
+			// Ugly method, left for posterity/learning
+			/*
 			if (betAmount <= bankBalance)
 				return true;
 			return false;
+			*/
+
+			// clean method
+			return betAmount <= bankBalance;
 		}
 
 		// Handles the winning/losing mechanic, changes visibility of win or lose images
 		// Updates the battle log, as well as the bank balance.
 		public void Battle()
 		{
-			if (human == "Rock")
-			{
-				switch (computer)
-				{
-					case "Rock":
-						UpdateBattleLog(matchTie);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-					case "Paper":
-						UpdateBalance(-betAmount);
-						UpdateBattleLog(matchLose);
-						imageLose.Visibility = Visibility.Visible;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-					case "Scissors":
-						UpdateBalance(betAmount);
-						UpdateBattleLog(matchWin);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Visible;
-						break;
-				}
-			}
-			else if (human == "Paper")
-			{
-				switch (computer)
-				{
-					case "Rock":
-						UpdateBalance(betAmount);
-						UpdateBattleLog(matchWin);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Visible;
-						break;
-					case "Paper":
-						UpdateBattleLog(matchTie);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-					case "Scissors":
-						UpdateBalance(-betAmount);
-						UpdateBattleLog(matchLose);
-						imageLose.Visibility = Visibility.Visible;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-				}
-			}
-			else if (human == "Scissors")
-			{
-				switch (computer)
-				{
-					case "Rock":
-						UpdateBalance(-betAmount);
-						UpdateBattleLog(matchLose);
-						imageLose.Visibility = Visibility.Visible;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-					case "Paper":
-						UpdateBalance(betAmount);
-						UpdateBattleLog(matchWin);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Visible;
-						break;
-					case "Scissors":
-						UpdateBattleLog(matchTie);
-						imageLose.Visibility = Visibility.Hidden;
-						imageWin.Visibility = Visibility.Hidden;
-						break;
-				}
-			}
+			// Handles all tie outcomes
+			if (human == computer)
+				Tie();
+			// All wins
+			else if ((human == "Rock" && computer == "Scissors") || (human == "Paper" && computer == "Rock") || (human == "Scissors" && computer == "Paper"))
+				Win();
+			// All losses
+			else
+				Lose();
+		}
+
+		private void Win()
+		{
+			matchWin = $"Win {betAmount / 2 + 1}! Congratulations!\n";
+			UpdateBalance(betAmount);
+			UpdateBattleLog(matchWin);
+			imageLose.Visibility = Visibility.Hidden;
+			imageWin.Visibility = Visibility.Visible;
+		}
+
+		private void Lose()
+		{
+			matchLose = $"Lose {betAmount}! Tough break!\n";
+			UpdateBalance(-betAmount);
+			UpdateBattleLog(matchLose);
+			imageLose.Visibility = Visibility.Visible;
+			imageWin.Visibility = Visibility.Hidden;
+		}
+
+		private void Tie()
+		{
+			matchTie = $"Tie! Returning {betAmount}!\n";
+			UpdateBattleLog(matchTie);
+			imageLose.Visibility = Visibility.Hidden;
+			imageWin.Visibility = Visibility.Hidden;
 		}
 
 		// Just handles the updating of the bank balance.
@@ -204,7 +175,7 @@ namespace RockPaperScissors
 			if (bet < 0)
 				bankBalance += bet;
 			else
-				bankBalance += bet / 2;
+				bankBalance += bet / 2 + 1;
 		}
 
 		// This is for scrolling the battle log down so the newest entry is at the top
