@@ -20,7 +20,7 @@ namespace RockPaperScissors
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		static Random random = new Random();
+		private static readonly Random random = new();
 
 		public string human;
 		public string computer;
@@ -45,26 +45,10 @@ namespace RockPaperScissors
 
 		}
 
-
-		// COMPLETED
-		//TODO: Refactor click functionality into it's own method. Too many copies to revise.
-		// COMPLETED
-
-
 		// Click handling for buttons
-		private void rock_OnClick(object sender, RoutedEventArgs e)
-		{
-			ClickButton(1);
-		}
-
-		private void paper_OnClick(object sender, RoutedEventArgs e)
-		{
-			ClickButton(2);
-		}
-		private void scissors_OnClick(object sender, RoutedEventArgs e)
-		{
-			ClickButton(3);
-		}
+		private void Rock_OnClick(object sender, RoutedEventArgs e) => ClickButton(1);
+		private void Paper_OnClick(object sender, RoutedEventArgs e) => ClickButton(2);
+		private void Scissors_OnClick(object sender, RoutedEventArgs e) =>ClickButton(3);
 
 		// Set bet, confirm there's a large enough balance available
 		// Set the Roll for human based on button, based on random for computer
@@ -82,6 +66,7 @@ namespace RockPaperScissors
 			{
 				UpdateBattleLog(insufficientFunds);
 			}
+
 			balanceBox.Text = $"{bankBalance}";
 			battleLogBox.Text = battleLogConcatenated;
 		}
@@ -110,13 +95,19 @@ namespace RockPaperScissors
 		{
 			// Handles all tie outcomes
 			if (human == computer)
+			{
 				Tie();
+			}
 			// All wins
 			else if ((human == "Rock" && computer == "Scissors") || (human == "Paper" && computer == "Rock") || (human == "Scissors" && computer == "Paper"))
+			{
 				Win();
+			}
 			// All losses
 			else
+			{
 				Lose();
+			}
 		}
 
 		private void Win()
@@ -149,9 +140,13 @@ namespace RockPaperScissors
 		public void UpdateBalance(int bet)
 		{
 			if (bet < 0)
+			{
 				bankBalance += bet;
+			}
 			else
+			{
 				bankBalance += bet / 2 + 1;
+			}
 		}
 
 		// This is for scrolling the battle log down so the newest entry is at the top

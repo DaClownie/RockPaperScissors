@@ -21,9 +21,9 @@
 		<Label Content="Pick:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
 		<Label Content="Bank:" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
 		<Label Content="Battle Log:" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
-		<Button x:Name="buttonRock" Content="Rock" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="rock_OnClick"/>
-		<Button x:Name="buttonPaper" Content="Paper" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="paper_OnClick"/>
-		<Button x:Name="buttonScissors" Content="Scissors" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="scissors_OnClick"/>
+		<Button x:Name="buttonRock" Content="Rock" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="Rock_OnClick"/>
+		<Button x:Name="buttonPaper" Content="Paper" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="Paper_OnClick"/>
+		<Button x:Name="buttonScissors" Content="Scissors" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Margin="20,20,20,20" FontWeight="Bold" BorderThickness="2,2,2,2" Click="Scissors_OnClick"/>
 		<StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,20,20,20">
 			<Label Content="Wager:" HorizontalAlignment="Center" FontSize="18" Margin="0,0,0,10"/>
 			<Slider x:Name="wagerSlider" Width="120" Minimum="2" AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" SmallChange="1" IsSnapToTickEnabled="True"/>
